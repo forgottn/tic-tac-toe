@@ -1,0 +1,23 @@
+body {
+	text-align: center;
+}
+
+table#board {
+  margin: auto;
+  border-spacing: 0;
+}
+
+table#board td {
+  width: 130px;
+  height: 130px;
+  font-size: 80px;
+  text-align: center;
+}
+
+table#board tr:nth-child(-n+2) td {
+  border-bottom: 1px solid #000;
+}
+
+table#board tr td:nth-child(-n+2) {
+  border-right: 1px solid #000;
+}

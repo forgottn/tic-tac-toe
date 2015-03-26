@@ -15,3 +15,9 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore jasmine tests
+/app/assets/javascript/jasmine-jquery.js
+
+# Ignore precompiled assets
+/public/assets/*

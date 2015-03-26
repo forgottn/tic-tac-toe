@@ -1,10 +1,10 @@
 %h1 Tic Tac Toe
 
-#current_player Current Player:
+#status
 
 %table#board
   %tbody
     - @board.each_slice(3) do |row|
       %tr
         - row.each do |cell|
-          %td{:id => cell}
+          %td{:id => "cell_#{cell}"}

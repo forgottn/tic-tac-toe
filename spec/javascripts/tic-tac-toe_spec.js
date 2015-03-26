@@ -32,7 +32,7 @@ describe("TicTacToe", function() {
 		it('should switch players if the game continues', function() {
 			$('#status').toHaveText("Player A's turn");
 			$('#cell_8').trigger('click');
-			$('#status').toHaveText("Player B's turn");
+			$('#status').toHaveText("Player 'Bs turn");
 		});
 		it('should be Player A wins if X fills a row, column or diagonal', function() {
 			$('#cell_2').trigger('click');

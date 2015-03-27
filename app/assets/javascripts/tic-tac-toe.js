@@ -18,10 +18,12 @@ var Game = {
   },
   markCell: function( cell ) {
     var cellChar = (currentPlayer == 'A') ? 'X' : 'O';
+    cell.addClass( (currentPlayer == 'A') ? 'blue' : 'red' );
     cell.html( cellChar );
   },
   switchPlayer: function() {
     currentPlayer = (currentPlayer == 'A') ? 'B' : 'A';
+    $('#status').toggleClass('red blue');
     Game.changeMessage("Player " + currentPlayer + "'s Move");
   },
   checkGameState: function() {
@@ -102,13 +104,15 @@ var Game = {
     Game.switchPlayer();
   },
   win: function() {
-    $('#status').addClass("red");
+    $('#status').removeClass("red blue");
+    $('#status').addClass("green");
     Game.changeMessage("Player " + currentPlayer + " Wins");
     Game.gameOver();
     return false;
   },
   draw: function() {
-    $('#status').addClass("red");
+    $('#status').removeClass("red blue");
+    $('#status').addClass("green");
     Game.changeMessage("Draw");
     Game.gameOver();
     return false;

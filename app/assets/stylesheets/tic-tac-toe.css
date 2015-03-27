@@ -2,6 +2,11 @@ body {
 	text-align: center;
 }
 
+#status {
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
 table#board {
   margin: auto;
   border-spacing: 0;
@@ -24,4 +29,12 @@ table#board tr td:nth-child(-n+2) {
 
 .red {
   color: red;
+}
+
+.green {
+  color: green;
+}
+
+.blue {
+  color: blue;
 }

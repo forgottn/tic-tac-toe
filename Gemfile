@@ -48,7 +48,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'rspec-rails', '~> 3.2.1'
   gem 'jasmine'
-  gem 'jasmine-jquery-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

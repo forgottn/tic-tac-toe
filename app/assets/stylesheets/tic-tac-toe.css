@@ -21,3 +21,7 @@ table#board tr:nth-child(-n+2) td {
 table#board tr td:nth-child(-n+2) {
   border-right: 1px solid #000;
 }
+
+.red {
+  color: red;
+}

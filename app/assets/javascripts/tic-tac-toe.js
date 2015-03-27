@@ -1,4 +1,3 @@
-var currentPlayer = 'A';
 var Game = {
   setup: function() {
     $('table#board').on('click', 'td', Game.playMove);
@@ -121,5 +120,12 @@ var Game = {
     $('#status').text(message);
   }
 };
+
+var currentPlayer = 'A';
+
+// Testing purposes
+function setPlayer(player) {
+  currentPlayer = player;
+}
 
 $(Game.setup);

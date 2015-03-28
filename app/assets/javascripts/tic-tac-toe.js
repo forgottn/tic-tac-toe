@@ -1,3 +1,5 @@
+var currentPlayer = 'A';
+var undoList = [];
 var Game = {
   setup: function() {
     $('table#board').on('click', 'td', Game.playMove);
@@ -19,31 +21,32 @@ var Game = {
     return cell.text() === '';
   },
   markCell: function( cell ) {
-    var cellChar = (currentPlayer == 'A') ? 'X' : 'O';
-    cell.addClass( (currentPlayer == 'A') ? 'blue' : 'red' );
+    var cellChar = (currentPlayer === 'A') ? 'X' : 'O';
+    cell.addClass( (currentPlayer === 'A') ? 'blue' : 'red' );
     cell.html( cellChar );
   },
   addMove: function( cell ) {
     undoList.push(cell.attr('id'));
   },
   switchPlayer: function() {
-    currentPlayer = (currentPlayer == 'A') ? 'B' : 'A';
+    currentPlayer = (currentPlayer === 'A') ? 'B' : 'A';
     $('#status').toggleClass('red blue');
     Game.changeMessage("Player " + currentPlayer + "'s Move");
   },
   checkGameState: function() {
     var boardLength = $('table#board tr').length;
+    var index, prevInd;
     
     // Check rows for NxN board
-    for (row = 0; row < boardLength; row++) {
-      if ($('#cell_' + (row * boardLength)).text() != '') {
-        for (col = 1; col < boardLength; col++) {
-          var index = row * boardLength + col;
-          if ($('#cell_' + index).text() != $('#cell_' + (index - 1)).text()) {
+    for (var row = 0; row < boardLength; row++) {
+      if ($('#cell_' + (row * boardLength)).text() !== '') {
+        for (var col = 1; col < boardLength; col++) {
+          index = row * boardLength + col;
+          if ($('#cell_' + index).text() !== $('#cell_' + (index - 1)).text()) {
             break;
           }
         }
-        if (col == boardLength) {
+        if (col === boardLength) {
           Game.win();
           return false;
         }
@@ -52,14 +55,14 @@ var Game = {
 
     // Check columns for NxN board
     for (col = 0; col < boardLength; col++) {
-      if ($('#cell_' + col).text() != '') {
+      if ($('#cell_' + col).text() !== '') {
         for (row = 1; row < boardLength; row++) {
-          var index = row * boardLength + col;
-          if ($('#cell_' + index).text() != $('#cell_' + (index - boardLength)).text()) {
+          index = row * boardLength + col;
+          if ($('#cell_' + index).text() !== $('#cell_' + (index - boardLength)).text()) {
             break;
           }
         }
-        if (row == boardLength) {
+        if (row === boardLength) {
           Game.win();
           return false;
         }
@@ -67,40 +70,40 @@ var Game = {
     }
 
     // Check diagonal for NxN board
-    if ($('#cell_0').text() != '') {
+    if ($('#cell_0').text() !== '') {
       for (row = 1; row < boardLength; row++) {
-        var index = row * boardLength + row;
-        var prevInd = (row - 1) * boardLength + (row - 1);
-        if ($('#cell_' + index).text() != $('#cell_' + prevInd).text()) {
+        index = row * boardLength + row;
+        prevInd = (row - 1) * boardLength + (row - 1);
+        if ($('#cell_' + index).text() !== $('#cell_' + prevInd).text()) {
           break;
         }
       }
-      if (row == boardLength) {
+      if (row === boardLength) {
         Game.win();
         return false;
       }
     }
 
     // Check reverse diagonal for NxN board
-    if ($('#cell_' + (boardLength-1)).text() != '') {
+    if ($('#cell_' + (boardLength-1)).text() !== '') {
       for (row = 1; row < boardLength; row++) {
-        var index = (boardLength - row - 1) * boardLength + row;
-        var prevInd = (boardLength - row) * boardLength + (row - 1);
-        if ($('#cell_' + index).text() != $('#cell_' + prevInd).text()) {
+        index = (boardLength - row - 1) * boardLength + row;
+        prevInd = (boardLength - row) * boardLength + (row - 1);
+        if ($('#cell_' + index).text() !== $('#cell_' + prevInd).text()) {
           break;
         }
       }
-      if (row == boardLength) {
+      if (row === boardLength) {
         Game.win();
         return false;
       }
     }
 
-    for (index = 0; index < $('table#board td').length; index++) {
-      if ($('#cell_' + index).text() === '') {
+    for (i = 0; i < $('table#board td').length; i++) {
+      if ($('#cell_' + i).text() === '') {
         break;
       }
-      if (index == $('table#board td').length - 1) {
+      if (i === $('table#board td').length - 1) {
         Game.draw();
         return false;
       }
@@ -136,13 +139,11 @@ var Game = {
       $('#' + cell).text('');
       Game.switchPlayer();
     } else {
-      Game.changeMessage("No moves to undo. Player " + currentPlayer + "'s Move")
+      Game.changeMessage("No moves to undo. Player " + currentPlayer + "'s Move");
     }
   }
 };
 
-var currentPlayer = 'A';
-var undoList = [];
 
 // Testing purposes
 function setPlayer(player) {

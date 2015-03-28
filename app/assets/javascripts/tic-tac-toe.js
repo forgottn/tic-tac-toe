@@ -129,7 +129,7 @@ var Game = {
   win: function() {
     $('#status').removeClass("red blue");
     $('#status').addClass("green");
-    Game.changeMessage("Player " + currentPlayer + " Wins");
+    Game.changeMessage("Winner: Player " + currentPlayer);
     Game.gameOver();
   },
   draw: function() {

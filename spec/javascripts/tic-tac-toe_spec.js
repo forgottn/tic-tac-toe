@@ -40,12 +40,12 @@ describe("TicTacToe", function() {
 		});
 		it('should be Player A wins if X fills a row, column or diagonal', function() {
 			$('#cell_2').trigger('click');
-			expect($('#status')).toHaveText("Player A Wins");
+			expect($('#status')).toHaveText("Winner: Player A");
 		});
 		it('should be Player B wins if O fills a row, column or diagonal', function() {
 			$('#cell_8').trigger('click');
 			$('#cell_5').trigger('click');
-			expect($('#status')).toHaveText("Player B Wins");
+			expect($('#status')).toHaveText("Winner: Player B");
 		});
 		it('should be a draw if all cells are filled and no one has won yet', function() {
 			$('#cell_8').trigger('click');

@@ -1,9 +1,10 @@
-var currentPlayer = 'A';
+var currentPlayer;
 var undoList = [];
 var Game = {
   setup: function() {
     $('table#board').on('click', 'td', Game.playMove);
     $(document).on('click', '#undo', Game.undo);
+    setPlayer('A');
     Game.changeMessage("Player " + currentPlayer + "'s Move");
   },
   playMove: function() {
@@ -34,11 +35,20 @@ var Game = {
     Game.changeMessage("Player " + currentPlayer + "'s Move");
   },
   checkGameState: function() {
+    if (Game.checkWin() || Game.checkDraw()) {
+      return false;
+    }
+    Game.switchPlayer();
+  },
+  checkWin: function() {
+    return (Game.checkRows() || Game.checkColumns() || Game.checkDiagonals());
+  },
+  checkRows: function() {
     var boardLength = $('table#board tr').length;
-    var index, prevInd, row, col;
+    var index, row, col;
     
     // Check rows for NxN board
-    for (var row = 0; row < boardLength; row++) {
+    for (row = 0; row < boardLength; row++) {
       if ($('#cell_' + (row * boardLength)).text() !== '') {
         for (col = 1; col < boardLength; col++) {
           index = row * boardLength + col;
@@ -48,10 +58,14 @@ var Game = {
         }
         if (col === boardLength) {
           Game.win();
-          return false;
+          return true;
         }
       }
     }
+  },
+  checkColumns: function() {
+    var boardLength = $('table#board tr').length;
+    var index, row, col;
 
     // Check columns for NxN board
     for (col = 0; col < boardLength; col++) {
@@ -64,12 +78,14 @@ var Game = {
         }
         if (row === boardLength) {
           Game.win();
-          return false;
+          return true;
         }
       }
     }
-
-    // Check diagonal for NxN board
+  },
+  checkDiagonals: function() {
+    var boardLength = $('table#board tr').length;
+    var index, prevInd, row, col;
     if ($('#cell_0').text() !== '') {
       for (row = 1; row < boardLength; row++) {
         index = row * boardLength + row;
@@ -80,7 +96,7 @@ var Game = {
       }
       if (row === boardLength) {
         Game.win();
-        return false;
+        return true;
       }
     }
 
@@ -95,35 +111,32 @@ var Game = {
       }
       if (row === boardLength) {
         Game.win();
-        return false;
+        return true;
       }
     }
-
+  },
+  checkDraw: function() {
     for (var i = 0; i < $('table#board td').length; i++) {
       if ($('#cell_' + i).text() === '') {
         break;
       }
       if (i === $('table#board td').length - 1) {
         Game.draw();
-        return false;
+        return true;
       }
     }
-
-    Game.switchPlayer();
   },
   win: function() {
     $('#status').removeClass("red blue");
     $('#status').addClass("green");
     Game.changeMessage("Player " + currentPlayer + " Wins");
     Game.gameOver();
-    return false;
   },
   draw: function() {
     $('#status').removeClass("red blue");
     $('#status').addClass("green");
     Game.changeMessage("Draw");
     Game.gameOver();
-    return false;
   },
   gameOver: function() {
     $('table#board').off('click', 'td', Game.playMove);

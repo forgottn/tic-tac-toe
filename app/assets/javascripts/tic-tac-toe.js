@@ -1,9 +1,10 @@
-var currentPlayer = 'A';
+var currentPlayer;
 var undoList = [];
 var Game = {
   setup: function() {
     $('table#board').on('click', 'td', Game.playMove);
     $(document).on('click', '#undo', Game.undo);
+    setPlayer('A');
     Game.changeMessage("Player " + currentPlayer + "'s Move");
   },
   playMove: function() {
@@ -38,7 +39,7 @@ var Game = {
     var index, prevInd, row, col;
     
     // Check rows for NxN board
-    for (var row = 0; row < boardLength; row++) {
+    for (row = 0; row < boardLength; row++) {
       if ($('#cell_' + (row * boardLength)).text() !== '') {
         for (col = 1; col < boardLength; col++) {
           index = row * boardLength + col;

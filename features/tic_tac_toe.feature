@@ -46,7 +46,7 @@ Scenario: Player A win
   | X |   | O |
   | X | O |   |
   | X | O | X |
-  And it should say "Player A Wins"
+  And it should say "Winner: Player A"
 
 Scenario: Player B win
   Given the board is now:
@@ -59,7 +59,7 @@ Scenario: Player B win
   | X | O | X |
   | O | O | X |
   | X | O |   |
-  And it should say "Player B Wins"
+  And it should say "Winner: Player B"
 
 Scenario: Draw
   Given the board is now:

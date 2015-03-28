@@ -57,6 +57,7 @@ describe("TicTacToe", function() {
 	describe('undo', function() {
 		beforeEach(function() {
 			loadFixtures('blank_board.html');
+			undoList = [];
 			currentPlayer = 'A';
 			$(Game.setup);
 		})
@@ -66,10 +67,12 @@ describe("TicTacToe", function() {
 				expect($('#cell_0')).toHaveText('X');
 			});
 			it('changes the current player to B', function() {
+				$('#cell_0').trigger('click');
 				expect($('#status')).toHaveText("Player B's Move");
 			});
 			it('should add to the list of moves', function() {
-				expect(undoList).toEqual(['#cell_0'])
+				$('#cell_0').trigger('click');
+				expect(undoList).toEqual(['cell_0'])
 			})
 			it('should change the square to blank', function() {
 				$('#undo').trigger('click');
@@ -80,9 +83,28 @@ describe("TicTacToe", function() {
 			});
 		});
 		describe('multiple', function() {
+			beforeEach(function() {
+				$('#cell_0').trigger('click');
+				$('#cell_1').trigger('click');
+				$('#cell_2').trigger('click');
+			});
+			it('should all be blank after hitting undo three times', function() {
+				$('#undo').trigger('click');
+				$('#undo').trigger('click');
+				$('#undo').trigger('click');
+				expect($('#cell_0')).toHaveText('');
+				expect($('#cell_1')).toHaveText('');
+				expect($('#cell_2')).toHaveText('');
+			});
+			it('should add to the list of moves', function() {
+				expect(undoList).toEqual(['cell_0', 'cell_1', 'cell_2']);
+			});
 		});
 		describe('invalid', function() {
-
-		})
+			it('should say no moves to undo', function() {
+				$('#undo').trigger('click');
+				expect($('#status')).toContainText('No moves to undo.');
+			});
+		});
 	});
 });

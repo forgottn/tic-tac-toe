@@ -48,7 +48,7 @@ Then /^(?:|I )click the (.+) square$/ do |cell|
   find(:xpath, "//td[@id='cell_#{index}']").click
 end
 
-Then(/the board should be/) do |board_table|
+Then /the board should be/ do |board_table|
   table_results = page.find('table#board').all('tr').map do |row|
     row.all('td').map do |cell|
         cell.text.strip
@@ -58,7 +58,7 @@ Then(/the board should be/) do |board_table|
   expected_table.should == table_results 
 end
 
-Then(/^it should be "(.+)" turn$/) do |player|
+Then /^it should be "(.+)" turn$/ do |player|
   if page.respond_to? :should
     page.should have_content(player)
   else
@@ -66,13 +66,14 @@ Then(/^it should be "(.+)" turn$/) do |player|
   end
 end
 
-Then(/^the board should not change$/) do
-end
-
-Then(/^it should say "(.+)"$/) do |status|
+Then /^it should say "(.+)"$/ do |status|
   if page.respond_to? :should
     page.should have_content(status)
   else
     assert page.has_content?(status)
   end
+end
+
+Then /^(?:|I )click undo (.+) time/ do |x|
+  x.to_i.times { click_on("Undo") }
 end

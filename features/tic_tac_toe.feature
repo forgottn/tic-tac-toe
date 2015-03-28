@@ -29,7 +29,10 @@ Scenario: Clicking a square already filled in
   |   |   |   |
   And it is "Player B's" move
   And I click the first square
-  Then the board should not change
+  Then the board should be:
+  | X |   |   |
+  |   |   |   |
+  |   |   |   |
   And it should be "Player B's" turn
 
 Scenario: Player A win
@@ -70,3 +73,33 @@ Scenario: Draw
   | O | O | X |
   | X | O | X |
   And it should say "Draw"
+
+Scenario: Undo once
+  Given the board is now:
+  |   |   |   |
+  |   |   |   |
+  |   |   |   |
+  And it is "Player A's" move
+  And I click the first square
+  And I click undo 1 time
+  Then the board should be:
+  |   |   |   |
+  |   |   |   |
+  |   |   |   |
+  And it should be "Player A's" turn
+
+Scenario: Undo multiple
+  Given the board is now:
+  |   |   |   |
+  |   |   |   |
+  |   |   |   |
+  And it is "Player A's" move
+  And I click the first square
+  And I click the second square
+  And I click the third square
+  And I click undo 3 times
+  Then the board should be:
+  |   |   |   |
+  |   |   |   |
+  |   |   |   |
+  And it should be "Player A's" turn

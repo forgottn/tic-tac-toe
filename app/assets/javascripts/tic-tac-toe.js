@@ -1,6 +1,7 @@
 var Game = {
   setup: function() {
     $('table#board').on('click', 'td', Game.playMove);
+    $(document).on('click', '#undo', Game.undo);
     Game.changeMessage("Player " + currentPlayer + "'s Move");
   },
   playMove: function() {
@@ -21,6 +22,9 @@ var Game = {
     var cellChar = (currentPlayer == 'A') ? 'X' : 'O';
     cell.addClass( (currentPlayer == 'A') ? 'blue' : 'red' );
     cell.html( cellChar );
+  },
+  addMove: function( cell ) {
+    undoList.push(cell.attr('id'));
   },
   switchPlayer: function() {
     currentPlayer = (currentPlayer == 'A') ? 'B' : 'A';
@@ -120,9 +124,20 @@ var Game = {
   },
   gameOver: function() {
     $('table#board').off('click', 'td', Game.playMove);
+    $(document).off('click', '#undo', Game.undo);
+    $('#undo').prop("disabled", true);
   },
   changeMessage: function( message ) {
     $('#status').text(message);
+  },
+  undo: function() {
+    if(undoList.length != 0) {
+      cell = undoList.pop();
+      $('#' + cell).text('');
+      Game.switchPlayer();
+    } else {
+      Game.changeMessage("No moves to undo. Player " + currentPlayer + "'s Move")
+    }
   }
 };
 

@@ -38,3 +38,11 @@ table#board tr td:nth-child(-n+2) {
 .blue {
   color: blue;
 }
+
+#buttons form {
+  display: inline-block;
+}
+
+#buttons {
+  margin-top: 20px;
+}

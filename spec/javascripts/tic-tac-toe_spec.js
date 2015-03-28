@@ -54,4 +54,35 @@ describe("TicTacToe", function() {
 			expect($('#status')).toHaveText("Draw");
 		});
 	});
+	describe('undo', function() {
+		beforeEach(function() {
+			loadFixtures('blank_board.html');
+			currentPlayer = 'A';
+			$(Game.setup);
+		})
+		describe('once', function() {
+			it('should change the square to X', function() {
+				$('#cell_0').trigger('click');
+				expect($('#cell_0')).toHaveText('X');
+			});
+			it('changes the current player to B', function() {
+				expect($('#status')).toHaveText("Player B's Move");
+			});
+			it('should add to the list of moves', function() {
+				expect(undoList).toEqual(['#cell_0'])
+			})
+			it('should change the square to blank', function() {
+				$('#undo').trigger('click');
+				expect($('#cell_0')).toHaveText('');
+			});
+			it("should be back to Player A's turn", function() {
+				expect($('#status')).toHaveText("Player A's Move");
+			});
+		});
+		describe('multiple', function() {
+		});
+		describe('invalid', function() {
+
+		})
+	});
 });

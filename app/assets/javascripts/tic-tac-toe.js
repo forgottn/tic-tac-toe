@@ -8,6 +8,7 @@ var Game = {
 
     if( Game.isValid( cell ) ) {
       Game.markCell( cell );
+      Game.addMove( cell );
       Game.checkGameState();
     } else {
       Game.changeMessage("Invalid move. Choose another spot. Player " + currentPlayer + "'s Move");
@@ -126,6 +127,7 @@ var Game = {
 };
 
 var currentPlayer = 'A';
+var undoList = [];
 
 // Testing purposes
 function setPlayer(player) {

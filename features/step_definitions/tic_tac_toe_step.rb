@@ -53,23 +53,15 @@ Then /the board should be/ do |board_table|
     end
   end
   expected_table = board_table.raw
-  expected_table.should == table_results 
+  expect(table_results).to eq(expected_table)
 end
 
 Then /^it should be "(.+)" turn$/ do |player|
-  if page.respond_to? :should
-    page.should have_content(player)
-  else
-    assert page.has_content?(player)
-  end
+  expect(page).to have_content(player)
 end
 
 Then /^it should say "(.+)"$/ do |status|
-  if page.respond_to? :should
-    page.should have_content(status)
-  else
-    assert page.has_content?(status)
-  end
+  expect(page).to have_content(status)
 end
 
 Then /^(?:|I )click undo (.+) time/ do |x|

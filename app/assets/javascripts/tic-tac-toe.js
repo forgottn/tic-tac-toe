@@ -35,12 +35,12 @@ var Game = {
   },
   checkGameState: function() {
     var boardLength = $('table#board tr').length;
-    var index, prevInd;
+    var index, prevInd, row, col;
     
     // Check rows for NxN board
     for (var row = 0; row < boardLength; row++) {
       if ($('#cell_' + (row * boardLength)).text() !== '') {
-        for (var col = 1; col < boardLength; col++) {
+        for (col = 1; col < boardLength; col++) {
           index = row * boardLength + col;
           if ($('#cell_' + index).text() !== $('#cell_' + (index - 1)).text()) {
             break;
@@ -99,7 +99,7 @@ var Game = {
       }
     }
 
-    for (i = 0; i < $('table#board td').length; i++) {
+    for (var i = 0; i < $('table#board td').length; i++) {
       if ($('#cell_' + i).text() === '') {
         break;
       }
@@ -134,8 +134,8 @@ var Game = {
     $('#status').text(message);
   },
   undo: function() {
-    if(undoList.length != 0) {
-      cell = undoList.pop();
+    if(undoList.length !== 0) {
+      var cell = undoList.pop();
       $('#' + cell).text('');
       Game.switchPlayer();
     } else {
